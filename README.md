@@ -36,8 +36,8 @@ This project develops a comprehensive data science pipeline to predict post-grad
 ⚠️ **IMPORTANT:** The raw data files (240 MB total) are **NOT included in this repository** due to their size. You must download them separately to reproduce the analysis.
 
 **Download Links:**
-- **Field of Study Dataset (142 MB):** [Most-Recent-Cohorts-Field-of-Study.csv](https://collegescorecard.ed.gov/data/)
-- **Institution Dataset (98 MB):** [Most-Recent-Cohorts-Institution.csv](https://collegescorecard.ed.gov/data/)
+- **Field of Study Dataset:** [Most-Recent-Cohorts-Field-of-Study.csv](https://collegescorecard.ed.gov/data/)
+- **Institution Dataset:** [Most-Recent-Cohorts-Institution.csv](https://collegescorecard.ed.gov/data/)
 - **Direct Download Page:** https://collegescorecard.ed.gov/data/
 
 After downloading, place both CSV files in the `data/` folder of this project.
