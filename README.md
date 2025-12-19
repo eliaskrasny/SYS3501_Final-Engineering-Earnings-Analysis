@@ -32,6 +32,17 @@ This project develops a comprehensive data science pipeline to predict post-grad
 ## 📊 Dataset
 
 ### Data Sources
+
+⚠️ **IMPORTANT:** The raw data files (240 MB total) are **NOT included in this repository** due to their size. You must download them separately to reproduce the analysis.
+
+**Download Links:**
+- **Field of Study Dataset (142 MB):** [Most-Recent-Cohorts-Field-of-Study.csv](https://collegescorecard.ed.gov/data/)
+- **Institution Dataset (98 MB):** [Most-Recent-Cohorts-Institution.csv](https://collegescorecard.ed.gov/data/)
+- **Direct Download Page:** https://collegescorecard.ed.gov/data/
+
+After downloading, place both CSV files in the `data/` folder of this project.
+
+### Dataset Overview
 - **Field of Study Dataset:** 229,188 program records (142 MB)
 - **Institution Dataset:** 6,429 institutions with 3,306 variables (98 MB)
 - **Source:** U.S. Department of Education College Scorecard
@@ -137,32 +148,43 @@ Created **10 engineered features** from **18 base features**:
 
 ```
 Engineering_Analysis_Project/
-├── README.md                          # This file
-├── data/
-│   ├── Most-Recent-Cohorts-Field-of-Study.csv
-│   └── Most-Recent-Cohorts-Institution.csv
+├── README.md                                         # This file (project documentation)
+│
+├── data/                                             # ⚠️ NOT INCLUDED - DOWNLOAD SEPARATELY
+│   ├── Most-Recent-Cohorts-Field-of-Study.csv      # 142 MB - Download from collegescorecard.ed.gov
+│   └── Most-Recent-Cohorts-Institution.csv         # 98 MB  - Download from collegescorecard.ed.gov
+│
 ├── notebooks/
-│   └── Complete_Engineering_Earnings_Analysis.ipynb  # Main analysis
-├── archive/
-│   ├── enhanced_regression_analysis.py               # Python script version
-│   ├── enhanced_analysis_results.png                 # 6-panel visualization
-│   ├── feature_importance_detailed.csv
-│   ├── linear_regression_coefficients.csv
-│   ├── lasso_selected_features.csv
-│   ├── regression_model_comparison.csv
-│   └── classification_model_comparison.csv
-└── .venv/                             # Python virtual environment
+│   └── Complete_Engineering_Earnings_Analysis.ipynb # Main analysis notebook (SUBMISSION FILE)
+│
+├── archive/                                          # Analysis outputs
+│   ├── enhanced_regression_analysis.py              # Python script version
+│   ├── enhanced_analysis_results.png                # 6-panel visualization
+│   ├── feature_importance_detailed.csv              # 27 features ranked
+│   ├── linear_regression_coefficients.csv           # Interpretable coefficients
+│   ├── lasso_selected_features.csv                  # 16 selected features
+│   ├── regression_model_comparison.csv              # Model performance metrics
+│   └── classification_model_comparison.csv          # Classification accuracies
+│
+└── .venv/                                            # Python virtual environment (auto-generated)
 ```
+
+**Note on Data Files:**
+- The `data/` folder is included in the repository structure but the CSV files are **NOT tracked** due to size (240 MB total)
+- You **MUST download these files manually** from https://collegescorecard.ed.gov/data/
+- Without these files, the analysis cannot run
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.11.9
+- Python 3.11+ (tested on 3.11.9)
 - Jupyter Notebook or VS Code with Jupyter extension
+- ~500 MB free disk space (for data files)
+- ~2 GB RAM (for processing)
 
-### Dependencies
+### Required Dependencies
 ```bash
 pandas==2.3.3
 numpy==2.3.5
@@ -170,31 +192,139 @@ scikit-learn==1.8.0
 matplotlib==3.10.8
 seaborn==0.13.2
 scipy==1.16.3
+jupyter
 ```
 
-### Installation
+---
 
-1. **Clone or download the project:**
+## 📥 Step-by-Step Reproduction Instructions
+
+### Step 1: Clone or Download the Project
 ```bash
+# Navigate to your desired location
+cd path/to/your/projects
+
+# If you have the project folder, navigate into it
 cd Engineering_Analysis_Project
 ```
 
-2. **Create virtual environment:**
+### Step 2: Download the Data Files
+
+⚠️ **CRITICAL STEP:** The data files are NOT included in this repository.
+
+1. Visit the **College Scorecard Data Download Page:**
+   - **URL:** https://collegescorecard.ed.gov/data/
+
+2. Download these two files:
+   -Step 5: Run the Analysis
+
+**Option 1: Jupyter Notebook (Recommended - Shows Full Process)**
+
 ```bash
-python -m venv .venv
-.venv\Scripts\activate  # Windows
-# OR
-source .venv/bin/activate  # Mac/Linux
+# Launch Jupyter
+jupyter notebook
+
+# Navigate to: notebooks/Complete_Engineering_Earnings_Analysis.ipynb
+# Then: Click "Run All" or run cells sequentially
 ```
 
-3. **Install dependencies:**
+**Option 2: Python Script (Automated Execution)**
+
 ```bash
+# Run the complete analysis script
+python archive/enhanced_regression_analysis.py
+```
+
+**Option 3: VS Code (If you prefer VS Code)**
+
+1. Open the project folder in VS Code
+2. Open `notebooks/Complete_Engineering_Earnings_Analysis.ipynb`
+3. Select Python interpreter (`.venv` or your conda environment)
+4. Click "Run All" at the top of the notebook
+
+---
+
+## ⏱️ Expected Runtime
+
+| Task | Time | Notes |
+|------|------|-------|
+| Data loading | ~10-15 sec | Loading 240 MB CSV files |
+| Data cleaning & merging | ~5 sec | Filtering to 8,880 engineering programs |
+| Feature engineering | ~2 sec | Creating 10 engineered features |
+| Linear/Ridge/Lasso | ~1 sec each | Fast for linear models |
+| Random Forest | ~5 sec | 100 trees, parallel processing |
+| Gradient Boosting | ~7-10 sec | Sequential tree building |
+| Visualization | ~2 sec | 6-panel matplotlib figure |
+| **Total Runtime** | **~30-60 sec** | Complete end-to-end execution |
+
+---
+
+## ✅ Verifying Successful Execution
+
+After running, you should see these outputs:
+
+### Console Output Indicators
+```
+✓ All libraries imported successfully
+✓ Data cleaning complete
+✓ Final dataset: 8,880 engineering programs
+✓ Feature Engineering Summary: 27 total features
+✓ Regression Models Complete
+✓ Classification Models Complete
+✓ Visualization saved
+✓ Results saved successfully
+```
+
+### Expected Results Files (in `archive/`)
+- ✅ `enhanced_analysis_results.png` (6-panel visualization)
+- ✅ `feature_importance_detailed.csv` (27 rows)
+- ✅ `linear_regression_coefficients.csv` (27 rows)
+- ✅ `lasso_selected_features.csv` (16 rows)
+- ✅ `regression_model_comparison.csv` (4 rows)
+- ✅ `classification_model_comparison.csv` (3 rows)
+
+### Expected Performance Metrics
+- **Random Forest R²:** ~0.98 (98%+ variance explained)
+- **Gradient Boosting Accuracy:** ~97.9%
+- **Linear Regression R²:** ~0.75
+
+If your results differ significantly, ensure you downloaded the correct data files.rnings_Analysis.ipynb
+└── README.md
+```
+
+### Step 3: Set Up Python Environment
+
+**Option A: Using Virtual Environment (Recommended)**
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate it
+.venv\Scripts\activate          # Windows
+source .venv/bin/activate       # Mac/Linux
+
+# Install dependencies
 pip install pandas numpy scikit-learn matplotlib seaborn scipy jupyter
 ```
 
-4. **Ensure data files are in `data/` folder:**
-- `Most-Recent-Cohorts-Field-of-Study.csv`
-- `Most-Recent-Cohorts-Institution.csv`
+**Option B: Using Conda**
+```bash
+conda create -n earnings_analysis python=3.11
+conda activate earnings_analysis
+pip install pandas numpy scikit-learn matplotlib seaborn scipy jupyter
+```
+
+### Step 4: Verify Data Files
+```bash
+# Check that data files exist
+ls data/
+
+# You should see:
+# Most-Recent-Cohorts-Field-of-Study.csv
+# Most-Recent-Cohorts-Institution.csv
+```
+
+If files are missing, **STOP** and return to Step 2.
 
 ### Running the Analysis
 
@@ -229,19 +359,63 @@ python archive/enhanced_regression_analysis.py
 
 2. **feature_importance_detailed.csv**
    - All 27 features ranked by Random Forest importance
-   - Importance scores (0-1)
+   🆘 Troubleshooting
 
-3. **linear_regression_coefficients.csv**
-   - Interpretable coefficients for all features
-   - Dollar impact per unit increase
+### "FileNotFoundError: data/Most-Recent-Cohorts-Field-of-Study.csv"
+**Solution:** You haven't downloaded the data files. See Step 2 above.
 
-4. **lasso_selected_features.csv**
-   - 16 features selected by Lasso (non-zero coefficients)
-   - Sparse model for feature selection
+### "ModuleNotFoundError: No module named 'pandas'"
+**Solution:** Install dependencies:
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn scipy
+```
 
-5. **regression_model_comparison.csv**
-   - R², MAE, RMSE for all 4 regression models
+### Data files are in the wrong location
+**Solution:** Ensure your folder structure matches:
+```
+Engineering_Analysis_Project/
+├── data/
+│   ├── Most-Recent-Cohorts-Field-of-Study.csv  ← HERE
+│   └── Most-Recent-Cohorts-Institution.csv     ← HERE
+└── notebooks/
+    └── Complete_Engineering_Earnings_Analysis.ipynb
+```
 
+### Results differ from expected values
+**Solution:** Ensure you downloaded the **most recent cohort data** from College Scorecard. Older versions will produce different results.
+
+### Out of memory errors
+**Solution:** The analysis requires ~2 GB RAM. Close other applications or use a machine with more memory.
+
+---
+
+## 📚 References & Data Sources
+
+### Primary Data Source
+1. **U.S. Department of Education College Scorecard**  
+   - **Main Page:** https://collegescorecard.ed.gov/
+   - **Data Download:** https://collegescorecard.ed.gov/data/
+   - **Documentation:** https://collegescorecard.ed.gov/data/documentation/
+   - **Data Dictionary:** Available on download page
+
+### Technical References
+2. **Scikit-learn: Machine Learning in Python**  
+   Pedregosa et al., JMLR 12, pp. 2825-2830, 2011  
+   https://scikit-learn.org/
+
+3. **Pandas: Powerful Python Data Analysis Toolkit**  
+   McKinney, W. (2010)  
+   https://pandas.pydata.org/
+
+4. **Random Forests**  
+   Breiman, L. (2001). Machine Learning, 45(1), 5-32
+
+### How to Cite This Project
+```
+Krasny, E., Ota, J., Wright, W., & Zell, E. (2025). 
+Predicting Engineering Graduate Earnings Using Institutional and Program-Level Data.
+University of Virginia, SYS 3501 Final Project.
+```
 6. **classification_model_comparison.csv**
    - Accuracy scores for all 3 classifiers
 
@@ -298,12 +472,21 @@ python archive/enhanced_regression_analysis.py
 1. **U.S. Department of Education College Scorecard**  
    https://collegescorecard.ed.gov/data/
 
+2. **Scikit-learn: Machine Learning in Python**  
+   Pedregosa et al., JMLR 12, pp. 2825-2830, 2011
+
+3. **Pandas: Powerful Python Data Analysis Toolkit**  
+   McKinney, W. (2010)
+
+4. **Random Forests**  
+   Breiman, L. (2001). Machine Learning, 45(1), 5-32
+
 ---
 
 ## 👥 Authors & Contributions
 
 - **Elias Krasny:** 
-- **Jiei Ota:** 
+- **Jiei Ota:**
 - **William Wright:** 
 - **Elias Zell:** 
 
