@@ -53,8 +53,8 @@ print("=" * 100)
 print("\n[1] LOADING DATA")
 print("-" * 100)
 
-field_df = pd.read_csv('Data/Most-Recent-Cohorts-Field-of-Study.csv', low_memory=False)
-institution_df = pd.read_csv('Data/Most-Recent-Cohorts-Institution.csv', low_memory=False)
+field_df = pd.read_csv('../data/Most-Recent-Cohorts-Field-of-Study.csv', low_memory=False)
+institution_df = pd.read_csv('../data/Most-Recent-Cohorts-Institution.csv', low_memory=False)
 
 # Filter engineering majors
 engineering_df = field_df[(field_df['CIPCODE'] >= 1400) & (field_df['CIPCODE'] < 1500)].copy()
