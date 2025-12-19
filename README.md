@@ -298,15 +298,6 @@ python archive/enhanced_regression_analysis.py
 1. **U.S. Department of Education College Scorecard**  
    https://collegescorecard.ed.gov/data/
 
-2. **Scikit-learn: Machine Learning in Python**  
-   Pedregosa et al., JMLR 12, pp. 2825-2830, 2011
-
-3. **Pandas: Powerful Python Data Analysis Toolkit**  
-   McKinney, W. (2010)
-
-4. **Random Forests**  
-   Breiman, L. (2001). Machine Learning, 45(1), 5-32
-
 ---
 
 ## 👥 Authors & Contributions
